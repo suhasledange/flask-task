@@ -3,7 +3,7 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 import os
 from dotenv import load_dotenv
-
+from datetime import datetime, timezone
 load_dotenv()
 
 app = Flask(__name__)
@@ -33,6 +33,9 @@ def get_tasks():
 def create_task():
     try:
         task_data = request.json
+        current_time = datetime.now(timezone.utc) 
+        task_data['createdAt'] = current_time
+        task_data['updatedAt'] = current_time
         new_task = task_collection.insert_one(task_data)
         task_data['_id'] = str(new_task.inserted_id)
         return jsonify({'success': True, 'task': task_data}), 201
