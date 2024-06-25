@@ -9,7 +9,7 @@ from flask_cors import CORS
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app, origins=["http://localhost:4200"])
+CORS(app, origins=["http://localhost:4200","https://tasklist-ang.vercel.app"])
 
 # MongoDB connection
 mongo_uri = os.getenv('MONGODB_URI')
